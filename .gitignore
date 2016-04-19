@@ -3,5 +3,3 @@ node_modules
 prebuild
 public
 test
-src/jsx/demo
-src/sass/demo
