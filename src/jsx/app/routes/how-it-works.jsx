@@ -136,7 +136,7 @@ var Body = React.createClass({
                     <Form id='form-2'>
                       <div id='wizard-2'>
                         <div>
-                          <div className='terms'>
+                          <div className='how-it-works'>
                             <LoremIpsum query='5p' />
                           </div>
                         </div>

@@ -46,6 +46,12 @@ html[dir='rtl'] {
   }
 }
 
+  .how-it-works {
+    overflow: auto;
+    background: #fff;
+    padding: 25px;
+  }
+
 body {
   opacity: 1;
   transition: all 0.7s ease;

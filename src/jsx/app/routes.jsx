@@ -2,7 +2,7 @@ import { Route, Router } from 'react-router';
 import BrowserHistory from 'react-router/lib/BrowserHistory';
 import HashHistory from 'react-router/lib/HashHistory';
 
-import Blank from 'routes/blank';
+import Blank from 'routes/setup-alert';
 import HIW from 'routes/how-it-works';
 
 export default (withHistory, onUpdate) => {
