@@ -100,7 +100,7 @@ var Body = React.createClass({
 
               <PanelContainer noOverflow controlStyles='bg-pink fg-white'>
                 <Panel>
-                  <PanelHeader className='bg-pink fg-white' style={{margin: 0}}>
+                  <PanelHeader className='bg-blue fg-white' style={{margin: 0}}>
                     <Grid>
                       <Row>
                         <Col xs={12}>
