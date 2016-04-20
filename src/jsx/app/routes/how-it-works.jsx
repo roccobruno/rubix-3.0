@@ -127,7 +127,7 @@ var Body = React.createClass({
                     <Grid>
                       <Row>
                         <Col xs={12}>
-                          <h3>Set up your ALERT</h3>
+                          <h3>How it works</h3>
                         </Col>
                       </Row>
                     </Grid>
@@ -135,42 +135,10 @@ var Body = React.createClass({
                   <PanelBody>
                     <Form id='form-2'>
                       <div id='wizard-2'>
-                        <h1>Email Data</h1>
                         <div>
-                          <Grid>
-                            <Row>
-                              <Col sm={4} xs={12} collapseLeft xsOnlyCollapseRight>
-                                <FormGroup>
-                                  <Label htmlFor='username'>User name *</Label>
-                                  <Input type='text' id='username' name='username' className='required' />
-                                </FormGroup>
-                               <FormGroup>
-                                 <Label htmlFor='username'>E-mail (From) *</Label>
-                                 <Input type='email' id='emailFrom' name='emailFrom' className='required' />
-                               </FormGroup>
-                              </Col>
-                              <Col sm={4} xs={6} collapseLeft className='form-border'>
-                                <FormGroup>
-                                  <Label htmlFor='username'>E-mail (To) </Label>
-                                  <Input type='email' id='emailTo' name='emailTo' className='required' />
-                                </FormGroup>
-                                <FormGroup>
-                                  <Label htmlFor='username'>Name (To) *</Label>
-                                  <Input type='text' id='usernameTo' name='usernameTo' className='required' />
-                                </FormGroup>
-                              </Col>
-                              <Col sm={4} xs={6} collapseRight>
-                                <p>
-                                  All fields marked (*) are Mandatory.
-                                </p>
-                              </Col>
-                            </Row>
-                          </Grid>
-                        </div>
-
-                        <h1>Journey Info</h1>
-                        <div>
-
+                          <div className='terms'>
+                            <LoremIpsum query='5p' />
+                          </div>
                         </div>
                       </div>
                     </Form>

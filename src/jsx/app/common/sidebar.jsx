@@ -16,7 +16,8 @@ class ApplicationSidebar extends React.Component {
               <div className='sidebar-header'>PAGES</div>
               <div className='sidebar-nav-container'>
                 <SidebarNav style={{marginBottom: 0}}>
-                  <SidebarNavItem glyph='icon-fontello-gauge' name='Blank' href='/' />
+                  <SidebarNavItem glyph='icon-fontello-gauge' name='Alert Set Up' href='/' />
+                  <SidebarNavItem glyph='icon-fontello-gauge' name='How it works' href='/how-it-works' />
                   <SidebarNavItem glyph='icon-feather-mail' name={<span>Menu <BLabel className='bg-darkgreen45 fg-white'>3</BLabel></span>}>
                     <SidebarNav>
                       <SidebarNavItem glyph='icon-feather-inbox' name='Inbox' />
@@ -58,10 +59,10 @@ export default class extends React.Component {
           <Grid>
             <Row className='fg-white'>
               <Col xs={4} collapseRight>
-                <img src='/imgs/avatars/avatar0.png' width='40' height='40' />
+                <img src='/imgs/avatars/user.png' width='40' height='40' />
               </Col>
               <Col xs={8} collapseLeft id='avatar-col'>
-                <div style={{top: 23, fontSize: 16, lineHeight: 1, position: 'relative'}}>Anna Sanchez</div>
+                <div style={{top: 23, fontSize: 16, lineHeight: 1, position: 'relative'}}>Test User</div>
                 <div>
                   <Progress id='demo-progress' value={30} min={0} max={100} color='#ffffff'/>
                   <Link to='/app/lock'><Icon id='demo-icon' bundle='fontello' glyph='lock-5' /></Link>
