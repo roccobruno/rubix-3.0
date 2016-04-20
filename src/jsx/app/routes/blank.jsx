@@ -149,7 +149,7 @@ var Body = React.createClass({
                                  <Input type='email' id='emailFrom' name='emailFrom' className='required' />
                                </FormGroup>
                               </Col>
-                              <Col sm={4} xs={6} collapseLeft className='form-border'>
+                              <Col sm={4} xs={12} collapseLeft className='form-border'>
                                 <FormGroup>
                                   <Label htmlFor='username'>E-mail (To) </Label>
                                   <Input type='email' id='emailTo' name='emailTo' className='required' />
