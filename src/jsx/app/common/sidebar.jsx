@@ -18,6 +18,7 @@ class ApplicationSidebar extends React.Component {
                 <SidebarNav style={{marginBottom: 0}}>
                   <SidebarNavItem glyph='icon-fontello-gauge' name='Alert Set Up' href='/' />
                   <SidebarNavItem glyph='icon-fontello-gauge' name='How it works' href='/how-it-works' />
+                  <SidebarNavItem glyph='icon-fontello-gauge' name='My Alerts' href='/my-alerts' />
 
                 </SidebarNav>
               </div>

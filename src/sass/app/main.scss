@@ -46,11 +46,98 @@ html[dir='rtl'] {
   }
 }
 
-  .how-it-works {
-    overflow: auto;
-    background: #fff;
-    padding: 25px;
-  }
+.how-it-works {
+  overflow: auto;
+  background: #fff;
+  padding: 25px;
+}
+
+
+.dlr {
+  width: 80px;
+  height: 10px;
+  background: #00afad;
+}
+
+.london-overground {
+  width: 80px;
+  height: 10px;
+  background: #e86a10;
+}
+
+.waterloo-city {
+  width: 80px;
+  height: 10px;
+  background: #76d0bd;
+}
+
+.victoria {
+  width: 80px;
+  height: 10px;
+  background: #00a0e2;
+}
+
+.northern {
+  width: 80px;
+  height: 10px;
+  background: #000;
+}
+
+.metropolitan {
+  width: 80px;
+  height: 10px;
+  background: #751056;
+}
+
+.jubilee {
+  width: 80px;
+  height: 10px;
+  background: #6a7278;
+}
+
+.hammersmith-city {
+  width: 80px;
+  height: 10px;
+  background: #d799af;
+}
+
+
+.district {
+  width: 80px;
+  height: 10px;
+  background: #007229;
+}
+
+.circle {
+  width: 80px;
+  height: 10px;
+  background: #ffce00;
+}
+
+.bakerloo {
+  width: 80px;
+  height: 10px;
+  background: #894e24;
+}
+
+.tfl-rail {
+  width: 80px;
+  height: 10px;
+  background: #0019a8;
+}
+
+.central {
+  width: 80px;
+  height: 10px;
+  background: #dc241f;
+}
+
+.piccadilly {
+  width: 80px;
+  height: 10px;
+  background: #0019a8;
+}
+
 
 body {
   opacity: 1;

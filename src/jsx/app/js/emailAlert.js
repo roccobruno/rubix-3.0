@@ -5,7 +5,7 @@ var moment = require("moment");
 var EmailAlert = function(){
 }
 
-var EmailAlert = function(id,nameFrom,emailFrom,nameTo,emailTo,tubeLines,recurring,hourStart,duration,enabled,creationTimestamp){
+var EmailAlert = function(id,nameFrom,emailFrom,nameTo,emailTo,tubeLines,recurring,hourStart,duration,enabled,creationTimestamp,alertName){
     this._nameFrom = nameFrom;
     this._emailFrom = emailFrom;
     this._nameTo = nameTo;
@@ -17,6 +17,11 @@ var EmailAlert = function(id,nameFrom,emailFrom,nameTo,emailTo,tubeLines,recurri
     this._duration =  duration;
     this._enabled =  enabled;
     this._creationTimestamp =  creationTimestamp;
+    this._alertName =  alertName;
+};
+
+EmailAlert.prototype.alertName = function(){
+    return this._alertName;
 };
 
 EmailAlert.prototype.nameFrom = function(){
@@ -90,11 +95,15 @@ EmailAlert.prototype.addTubeLine = function(tubeLine) {
 
 EmailAlert.fromWireFormat = function(m) {
     return new EmailAlert(m.id,m.nameFrom,m.emailFrom,m.nameTo,m.emailTo,m.tubeLines,m.recurring,m.hourStart,
-    m.duration,m.enabled,m.creationTimestamp);
+    m.duration,m.enabled,m.creationTimestamp,m.alertName);
 };
 
 
 EmailAlert.prototype.update = function(field, value) {
+
+    if(field == 'alertName') {
+        this._alertName = value;
+    }
 
     if(field == 'nameFrom') {
         this._nameFrom = value;
@@ -130,7 +139,6 @@ EmailAlert.prototype.update = function(field, value) {
 
 EmailAlert.prototype.toWireFormat = function () {
     return {
-       id:this._id,	
        nameFrom : this._nameFrom,
        emailFrom: this._emailFrom,
        nameTo:this._nameTo,
@@ -139,7 +147,8 @@ EmailAlert.prototype.toWireFormat = function () {
        recurring:this._recurring,
        hourStart:this._hourStart,
        duration:this._duration,
-       enabled:this._enabled
+       enabled:this._enabled,
+       alertName:this._alertName
     };
 };
 

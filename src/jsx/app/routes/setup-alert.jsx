@@ -9,9 +9,20 @@ import LoremIpsum from 'global/jsx/loremipsum';
 import ReactStyle from 'global/jsx/react-styles/src/ReactStyle.jsx';
 
 
-var EmailAlert = require("../emailAlert.js").EmailAlert;
+
+
+var EmailAlert = require("../js/emailAlert.js").EmailAlert;
+var TubeLine = require("./tubeLine.jsx").TubeLine;
+var TubeLineList = require("../js/tubeLine.js").TubeLineList;
+
+var EmailAlerts = require("../js/api-email-alert.js");
+
 var _ = require("lodash");
 var Body = React.createClass({
+
+   contextTypes: {
+            router: React.PropTypes.object
+   },
 
   componentDidMount: function() {
     var isLtr = $('html').attr('dir') === 'ltr';
@@ -55,7 +66,7 @@ var Body = React.createClass({
         vex.dialog.confirm({
               message: 'Alert Created!',
               callback: (value) => {
-                that.setState({emailAlert:new EmailAlert()});
+                EmailAlerts.sendEmailAlert(that.state.emailAlert,that.callbackSuccess,that.callbackFailure)
               }
             });
       }
@@ -63,25 +74,63 @@ var Body = React.createClass({
 
 
   },
+  callbackSuccess: function() {
+
+    window.location = "/";
+  },
+
+   callbackFailure: function() {
+     console.log("ROCCO")
+     const path = '/my-alerts'
+     history.replaceState(null, path)
+   },
+
   getInitialState: function() {
               return {emailAlert: new EmailAlert(),showForm:false}
-          },
-           handleChange: function(event) {
-            var emailAlert = this.state.emailAlert;
-                    emailAlert.update(event.target.name,event.target.value);
-                    this.setState({emailAlert:emailAlert});
-            },
-            handleChangeOnSelect: function(event) {
-                        var emailAlert = this.state.emailAlert;
-                                emailAlert.update(event.target.id,event.target.value);
-                                this.setState({emailAlert:emailAlert});
-                        },
+  },
+   handleChange: function(event) {
+        var emailAlert = this.state.emailAlert;
+                emailAlert.update(event.target.name,event.target.value);
+                this.setState({emailAlert:emailAlert});
+   },
+   handleChangeOnSelect: function(event) {
+                var emailAlert = this.state.emailAlert;
+                        emailAlert.update(event.target.id,event.target.value);
+                        this.setState({emailAlert:emailAlert});
+  },
+  generateMessageForPreviewAboutTubeLine : function() {
+    var listOfLines = _.map(this.state.emailAlert.tubeLines(), function(lineId) {
+        return TubeLineList.findById(lineId).displayName()
+    })
+
+    if(_.isEmpty(listOfLines))
+      return "<< TUBE LINES selected on the next step>>";
+    else {
+
+         if(_.size(listOfLines) == 1)
+           return listOfLines[0].concat(" Line")
+         else {
+
+           var last = _.last(listOfLines)
+           var others = _.pull(listOfLines, last)
+
+           var lastStr = _.toString(" and ").concat(last).concat(" Line")
+           return _.join(others,",").concat(lastStr)
+
+         }
+
+
+    }
+
+
+  },
+
   render: function() {
 
     var that=this;
     var lines = that.state.emailAlert.tubeLines()
     var selectedTubeLines = _.isEmpty(lines) ? (<div></div>) : ( _.map(lines, function(line)
-     { return <div><Label>{line}</Label></div>  })  )
+     { return <TubeLine name={line}/>  })  )
 
      var rangeHour = _.range(1,25)
 
@@ -89,8 +138,12 @@ var Body = React.createClass({
         var f = _.toString(h).concat(":").concat("00");
         var s = _.toString(h).concat(":").concat("30");
 
-        return ([<option value='{f}'>{f}</option>,<option value='{s}'>{s}</option>]);
+        return ([<option value={f}>{f}</option>,<option value={s}>{s}</option>]);
      }));
+
+      var tubeLines = _.map(new TubeLineList().list(), function(line) {
+             return (<option value={line.id()}>{line.displayName()}</option>);
+          });
 
     return (
       <Container id='body'>
@@ -179,7 +232,7 @@ var Body = React.createClass({
                                                          <strong>Hi {that.state.emailAlert.nameTo()},</strong>
                                                        </p>
                                                        <p>
-                                                         Due to severe delays on {that.state.emailAlert.tubeLines()}, {that.state.emailAlert.nameFrom()} might be running a few minutes late .
+                                                         Due to severe delays on {that.generateMessageForPreviewAboutTubeLine()}, {that.state.emailAlert.nameFrom()} might be running a few minutes late .
                                                        </p>
                                                        <p>This message was sent by {that.state.emailAlert.nameFrom()} using <a target='_blank' href='http://www.bobbit.co.uk'>Bobbit.</a></p>
 
@@ -213,22 +266,12 @@ var Body = React.createClass({
                           <Grid>
                              <Row>
                               <Col xs={6}>
-                              <FormGroup>
-                                <Label>Journey Settings</Label>
-                                <div>
-                                  <Checkbox inline id='recurring' value='true' name='recurring' onChange={this.handleChange}>
-                                    Recurring (every Week Day)
-                                  </Checkbox>
-                                  <Checkbox inline id='enabled' value='true' defaultChecked name='enabled'>
-                                    Enabled?
-                                  </Checkbox>
 
-                                </div>
-                              </FormGroup>
                               <FormGroup>
                                   <Label htmlFor='hourStart'>Journey Start Hour</Label>
 
                                   <Select id='hourStart' defaultValue='' onChange={this.handleChangeOnSelect}>
+                                  <option value=''></option>
                                    {selectOption}
                                   </Select>
                                   </FormGroup>
@@ -244,11 +287,7 @@ var Body = React.createClass({
 
                                 <Select id='tubeLine' defaultValue='' onChange={this.handleChangeOnSelect}>
                                   <option value=''></option>
-                                  <option value='central'>Central Line</option>
-                                  <option value='bakerloo'>Bakerloo Line</option>
-                                  <option value='district'>District</option>
-                                  <option value='hammersmith-city'>Hammersmith & City</option>
-                                  <option value='jubilee'>Jubilee</option>
+                                  {tubeLines}
                                 </Select>
                               </FormGroup>
                                <FormGroup>
@@ -264,6 +303,36 @@ var Body = React.createClass({
                           </Grid>
 
                         </div>
+                        <h1>Settings</h1>
+                            <div>
+                              <Grid>
+                                 <Row>
+                                  <Col xs={6}>
+
+                                  <FormGroup>
+                                    <Label htmlFor='alertName'>Alert Name</Label>
+                                    <Input type='text' id='alertName' name='alertName' className='required' onChange={this.handleChange}/>
+                                  </FormGroup>
+                                  <FormGroup>
+                                    <div>
+                                      <Checkbox inline id='recurring' value='true' name='recurring' onChange={this.handleChange}>
+                                        Recurring (every Week Day)
+                                      </Checkbox>
+                                      <Checkbox inline id='enabled' value='true' defaultChecked name='enabled' onChange={this.handleChange}>
+                                        Enabled?
+                                      </Checkbox>
+
+
+                                    </div>
+                                  </FormGroup>
+                                  </Col>
+
+                                 </Row>
+
+
+                              </Grid>
+
+                            </div>
                       </div>
                     </Form>
                   </PanelBody>
