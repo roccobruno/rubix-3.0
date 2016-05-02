@@ -56,9 +56,9 @@ function doit(method, url, object,callbackok,callbackKo) {
     }
     xmlhttp.onreadystatechange=function()
     {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        if (xmlhttp.readyState==4 && (xmlhttp.status==200 || xmlhttp.status==201))
         {
-            callbackok(JSON.parse(xmlhttp.responseText));
+            callbackok();
         } else if(xmlhttp.status==500 || xmlhttp.status==404) {
         	callbackKo(xmlhttp.responseText)
         } else {

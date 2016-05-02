@@ -8,17 +8,17 @@ var EmailAlertList = require("./emailAlert.js").EmailAlertList;
 var EmailAlerts = function() {};
 
 EmailAlerts.prototype.sendEmailAlert = function(emailalert,callbackSuccess,callbackFailed) {
-    ajax.post("/api/emailalert",emailalert.toWireFormat(),callbackSuccess,callbackFailed);
+    ajax.post("/api/bobbit",emailalert.toWireFormat(),callbackSuccess,callbackFailed);
 };
 
 EmailAlerts.prototype.deleteEmailAlert = function(emailalertId,callbackSuccess) {
-    ajax.del("/api/emailalert/"+emailalertId,callbackSuccess);
+    ajax.del("/api/bobbit/"+emailalertId,callbackSuccess);
 };
 
 
 
 EmailAlerts.prototype.findAll = function(callback) {
-    ajax.get("/api/emailalert/", function (json) {
+    ajax.get("/api/bobbit/", function (json) {
         callback(EmailAlertList.fromWireFormat(json));
     });
 

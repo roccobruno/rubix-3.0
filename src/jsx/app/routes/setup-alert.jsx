@@ -63,20 +63,19 @@ var Body = React.createClass({
         return $('#form-2').valid();
       },
       onFinished: function (event, currentIndex) {
-        vex.dialog.confirm({
-              message: 'Alert Created!',
-              callback: (value) => {
-                EmailAlerts.sendEmailAlert(that.state.emailAlert,that.callbackSuccess,that.callbackFailure)
-              }
-            });
+            EmailAlerts.sendEmailAlert(that.state.emailAlert,that.callbackSuccess,that.callbackFailure)
       }
     });
 
 
   },
   callbackSuccess: function() {
-
-    window.location = "/";
+   vex.dialog.confirm({
+                message: 'Alert Created!',
+                callback: (value) => {
+                   window.location = "/";
+                }
+              });
   },
 
    callbackFailure: function() {
@@ -277,7 +276,7 @@ var Body = React.createClass({
                                   </FormGroup>
                                   <FormGroup>
                                   <Label htmlFor='inlinehelp'>Duration</Label>
-                                  <Input type='text' id='duration' placeholder='Enter Numbers' onChange={this.handleChange} className='inline' />
+                                  <Input type='text' id='duration' name='duration' placeholder='Enter Numbers' onChange={this.handleChange} className='inline' />
                                   <HelpBlock className='inline'>minutes.</HelpBlock>
                                 </FormGroup>
                               </Col>
