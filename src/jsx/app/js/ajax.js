@@ -43,6 +43,21 @@ function del(url,callback) {
 }
 
 
+function getCookie() {
+    var name = "token" + "=";
+    var ca = document.cookie.split(';');
+    console.log("cookies "+ca)
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
 
 function doit(method, url, object,callbackok,callbackKo) {
     var xmlhttp;
@@ -58,15 +73,17 @@ function doit(method, url, object,callbackok,callbackKo) {
     {
         if (xmlhttp.readyState==4 && (xmlhttp.status==200 || xmlhttp.status==201))
         {
+            console.log("AUTH- "+xmlhttp.getResponseHeader("AUTHORIZATION"))
             callbackok();
-        } else if(xmlhttp.status==500 || xmlhttp.status==404) {
-        	callbackKo(xmlhttp.responseText)
+        } else if(xmlhttp.status==502 || xmlhttp.status==500 || xmlhttp.status==404 || xmlhttp.status==403 || xmlhttp.status==400) {
+        	callbackKo(xmlhttp.status)
         } else {
             console.log("error in ajax request="+xmlhttp.responseText)
         }
     }
     xmlhttp.open(method,url,true);
     xmlhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+    xmlhttp.setRequestHeader("Authorization", getCookie());
     xmlhttp.send(JSON.stringify(object));
 
 }
@@ -116,3 +133,4 @@ module.exports.del = del;
 module.exports.post = post;
 module.exports.uploadFile = uploadFile;
 module.exports.put = put;
+module.exports.cookie = getCookie;

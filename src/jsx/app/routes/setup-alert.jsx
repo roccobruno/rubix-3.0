@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 import SidebarMixin from 'global/jsx/sidebar_component';
+import { Link, State, Navigation } from 'react-router';
+
 
 import Header from 'common/header';
 import Sidebar from 'common/sidebar';
@@ -14,17 +16,26 @@ import ReactStyle from 'global/jsx/react-styles/src/ReactStyle.jsx';
 var EmailAlert = require("../js/emailAlert.js").EmailAlert;
 var TubeLine = require("./tubeLine.jsx").TubeLine;
 var TubeLineList = require("../js/tubeLine.js").TubeLineList;
+var ajax = require("../js/ajax.js");
 
 var EmailAlerts = require("../js/api-email-alert.js");
 
 var _ = require("lodash");
 var Body = React.createClass({
-
+mixins: [State, Navigation],
    contextTypes: {
             router: React.PropTypes.object
    },
 
+  checkForSession: function() {
+     var cookie = ajax.cookie()
+     if(_.isEmpty(cookie))
+        this.transitionTo('/login');
+  },
   componentDidMount: function() {
+
+    this.checkForSession();
+
     var isLtr = $('html').attr('dir') === 'ltr';
     var styles = {};
     var that = this;
@@ -73,19 +84,18 @@ var Body = React.createClass({
    vex.dialog.confirm({
                 message: 'Alert Created!',
                 callback: (value) => {
-                   window.location = "/";
+                   that.transitionTo('/');
                 }
               });
   },
 
    callbackFailure: function() {
-     console.log("ROCCO")
      const path = '/my-alerts'
      history.replaceState(null, path)
    },
 
   getInitialState: function() {
-              return {emailAlert: new EmailAlert(),showForm:false}
+              return {emailAlert: new EmailAlert()}
   },
    handleChange: function(event) {
         var emailAlert = this.state.emailAlert;

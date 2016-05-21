@@ -137,40 +137,7 @@ EmailAlert.prototype.update = function(field, value) {
 
 };
 
-/*
-{
-	"title": "jobTitle",
-	"alert": {
-		"nameFrom": "name",
-		"from": {
-			"value": "from@mss.it"
-		},
-		"nameTo": "name",
-		"to": {
-			"value": "from@mss.it"
-		}
-	},
-	"journey": {
-		"recurring": true,
-		"meansOfTransportation": {
-			"tubeLines": [{
-				"name": "central",
-				"id": "central"
-			}],
-			"trainService": []
-		},
-		"startsAt": {
-			"hour": 8,
-			"min": 30,
-			"time": 830
-		},
-		"durationInMin": 40
-	},
-	"id": "9aeed5ac-3c24-4459-88da-d2917b0c664e",
-	"active": true
-}
 
-*/
 
 
 EmailAlert.prototype.toWireFormat = function () {
@@ -209,20 +176,7 @@ function getBool(val) {
     return !!JSON.parse(String(val).toLowerCase());
 }
 
-//EmailAlert.prototype.toWireFormat = function () {
-//    return {
-//       nameFrom : this._nameFrom,
-//       emailFrom: this._emailFrom,
-//       nameTo:this._nameTo,
-//       emailTo:this._emailTo,
-//       tubeLine:this._tubeLines,
-//       recurring:this._recurring,
-//       hourStart:this._hourStart,
-//       duration:this._duration,
-//       enabled:this._enabled,
-//       alertName:this._alertName
-//    };
-//};
+
 
 
 

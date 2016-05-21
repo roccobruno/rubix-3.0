@@ -4,7 +4,8 @@ import HashHistory from 'react-router/lib/HashHistory';
 import Blank from 'routes/setup-alert';
 import HIW from 'routes/how-it-works';
 import MYALERTS from 'routes/myalerts';
-
+import Login from 'routes/login';
+import Signup from 'routes/signup';
 
 export default (withHistory, onUpdate) => {
   const history = withHistory?
@@ -17,6 +18,8 @@ export default (withHistory, onUpdate) => {
       <Route path='/' component={Blank} />
       <Route path='/how-it-works' component={HIW} />
       <Route path='/my-alerts' component={MYALERTS} />
+      <Route path='/login' component={Login} />
+      <Route path='/signup' component={Signup} />
     </Router>
   );
 };

@@ -2,6 +2,7 @@ import { State, Navigation } from 'react-router';
 import classNames from 'classnames';
 
 import { SidebarBtn } from 'global/jsx/sidebar_component';
+var AccountApi = require("../js/api-account.js");
 
 class Brand extends React.Component {
   render() {
@@ -17,6 +18,17 @@ class Brand extends React.Component {
 
 var HeaderNavigation = React.createClass({
   mixins: [State, Navigation],
+
+  logout : function() {
+    AccountApi.logout(this.handleOk,this.handleKO);
+  },
+  handleOk: function() {
+    this.transitionTo('/login');
+  },
+  handleKO: function(e) {
+    console.log("error in logging out:"+e)
+  },
+
   render() {
     var props = {
       ...this.props,
@@ -26,8 +38,8 @@ var HeaderNavigation = React.createClass({
     return (
       <NavContent {...props}>
         <Nav>
-          <NavItem className='logout' href='#'>
-            <Icon bundle='fontello' glyph='off-1' />
+          <NavItem className='logout' href=''>
+            <Icon bundle='fontello' glyph='off-1' onClick={this.logout}/>
           </NavItem>
         </Nav>
       </NavContent>
